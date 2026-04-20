@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model SearchHistory {
+  id        String   @id @default(cuid())
+  mode      String
+  industry  String   @default("")
+  material  String   @default("")
+  country   String   @default("")
+  hsCode    String   @default("")
+  results   String
+  createdAt DateTime @default(now())
+}
+
+model HsCodeCache {
+  id        String   @id @default(cuid())
+  industry  String
+  material  String
+  hsCode    String
+  hsDesc    String
+  createdAt DateTime @default(now())
+
+  @@unique([industry, material])
+}
